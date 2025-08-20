@@ -1,0 +1,40 @@
+{
+  "name": "saleor-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "codegen": "graphql-codegen --config codegen.ts"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.8.6",
+    "@headlessui/react": "^1.7.17",
+    "@heroicons/react": "^2.0.18",
+    "@tailwindcss/forms": "^0.5.6",
+    "clsx": "^2.0.0",
+    "graphql": "^16.8.1",
+    "next": "^14.2.32",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.47.0",
+    "react-hot-toast": "^2.4.1",
+    "zustand": "^4.4.4"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "5.0.0",
+    "@graphql-codegen/client-preset": "4.1.0",
+    "@types/node": "^20.8.6",
+    "@types/react": "^18.2.28",
+    "@types/react-dom": "^18.2.13",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.51.0",
+    "eslint-config-next": "14.0.0",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5",
+    "typescript": "^5.2.2"
+  }
+}
