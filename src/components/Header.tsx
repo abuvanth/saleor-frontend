@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { ShoppingCartIcon, UserIcon, MagnifyingGlassIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { useCartStore } from '@/store/cart'
+import { useCartStore } from '../store/cart'
 import { Cart } from './Cart'
 
 export function Header() {

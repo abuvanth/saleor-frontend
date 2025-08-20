@@ -3,7 +3,7 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon, MinusIcon, PlusIcon } from '@heroicons/react/24/outline'
-import { useCartStore } from '@/store/cart'
+import { useCartStore } from '../store/cart'
 import Image from 'next/image'
 
 export function Cart() {

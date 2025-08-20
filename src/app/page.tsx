@@ -1,7 +1,7 @@
-import { Hero } from '@/components/Hero'
-import { FeaturedProducts } from '@/components/FeaturedProducts'
-import { CategoryGrid } from '@/components/CategoryGrid'
-import { Newsletter } from '@/components/Newsletter'
+import { Hero } from '../components/Hero'
+import { FeaturedProducts } from '../components/FeaturedProducts'
+import { CategoryGrid } from '../components/CategoryGrid'
+import { Newsletter } from '../components/Newsletter'
 
 export default function HomePage() {
   return (

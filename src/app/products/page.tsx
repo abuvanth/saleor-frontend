@@ -1,9 +1,9 @@
 'use client'
 
 import { useQuery } from '@apollo/client'
-import { ProductCard } from '@/components/ProductCard'
-import { FEATURED_PRODUCTS_QUERY } from '@/lib/queries'
-import { useChannel } from '@/hooks/useChannel'
+import { ProductCard } from '../../components/ProductCard'
+import { FEATURED_PRODUCTS_QUERY } from '../../lib/queries'
+import { useChannel } from '../../hooks/useChannel'
 
 export default function ProductsPage() {
   const channel = useChannel()

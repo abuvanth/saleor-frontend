@@ -2,8 +2,8 @@
 
 import { useQuery } from '@apollo/client'
 import { ProductCard } from './ProductCard'
-import { FEATURED_PRODUCTS_QUERY } from '@/lib/queries'
-import { useChannel } from '@/hooks/useChannel'
+import { FEATURED_PRODUCTS_QUERY } from '../lib/queries'
+import { useChannel } from '../hooks/useChannel'
 
 export function FeaturedProducts() {
   const channel = useChannel()

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useCartStore } from '@/store/cart'
+import { useCartStore } from '../store/cart'
 import toast from 'react-hot-toast'
 
 interface Product {
