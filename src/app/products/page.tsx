@@ -17,17 +17,17 @@ export default function ProductsPage() {
 
   if (loading || !channel) {
     return (
-      <div className="min-h-screen bg-gray-50 py-8">
+      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">All Products</h1>
+            <h1 className="text-3xl font-bold text-white">All Products</h1>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[...Array(12)].map((_, i) => (
-              <div key={i} className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 animate-pulse">
-                <div className="bg-gray-200 aspect-square rounded-lg mb-4"></div>
-                <div className="h-4 bg-gray-200 rounded mb-2"></div>
-                <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+              <div key={i} className="glass rounded-3xl p-6 animate-pulse">
+                <div className="bg-white/20 aspect-square rounded-2xl mb-4"></div>
+                <div className="h-4 bg-white/20 rounded mb-2"></div>
+                <div className="h-4 bg-white/20 rounded w-2/3"></div>
               </div>
             ))}
           </div>
@@ -38,13 +38,15 @@ export default function ProductsPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 py-8">
+      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">All Products</h1>
-          <p className="text-red-600">Error loading products: {error.message}</p>
-          <p className="text-sm text-red-500 mt-2">
-            Please check your Saleor backend connection and ensure channels are configured properly.
-          </p>
+          <div className="glass rounded-3xl p-8">
+            <h1 className="text-3xl font-bold text-white mb-4">All Products</h1>
+            <p className="text-red-400">Error loading products: {error.message}</p>
+            <p className="text-sm text-red-300 mt-2">
+              Please check your Saleor backend connection and ensure channels are configured properly.
+            </p>
+          </div>
         </div>
       </div>
     )
@@ -53,11 +55,11 @@ export default function ProductsPage() {
   const products = data?.products?.edges || []
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">All Products</h1>
-          <p className="text-lg text-gray-600">
+          <h1 className="text-3xl font-bold text-white mb-4">All Products</h1>
+          <p className="text-lg text-white/80">
             Discover our complete collection of premium products
           </p>
         </div>
@@ -70,7 +72,9 @@ export default function ProductsPage() {
         
         {products.length === 0 && (
           <div className="text-center py-8">
-            <p className="text-gray-500">No products available at the moment.</p>
+            <div className="glass rounded-3xl p-8">
+              <p className="text-white/70">No products available at the moment.</p>
+            </div>
           </div>
         )}
       </div>

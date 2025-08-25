@@ -2,21 +2,37 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { ShoppingCartIcon, UserIcon, MagnifyingGlassIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useCartStore } from '../store/cart'
+import { useAuthStore } from '../store/auth'
 import { Cart } from './Cart'
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const { openCart, getTotalItems } = useCartStore()
-  const totalItems = getTotalItems()
+  const [searchQuery, setSearchQuery] = useState('')
+  const { items, openCart } = useCartStore()
+  const { isAuthenticated, user } = useAuthStore()
+  const router = useRouter()
+  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0)
 
-  const navigation = [
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`)
+      setSearchQuery('')
+    }
+  }
+
+  const handleMobileSearch = () => {
+    router.push('/search')
+  }
+
+    const navigation = [
     { name: 'Home', href: '/' },
     { name: 'Products', href: '/products' },
     { name: 'Categories', href: '/categories' },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Search', href: '/search' },
   ]
 
   return (
@@ -47,27 +63,55 @@ export function Header() {
 
             {/* Search Bar */}
             <div className="hidden lg:flex flex-1 max-w-lg mx-8">
-              <div className="relative w-full">
+              <form onSubmit={handleSearch} className="relative w-full">
                 <input
                   type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search products..."
                   className="glass w-full pl-10 pr-4 py-2.5 text-white placeholder-white/60 focus:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/30 rounded-xl transition-all duration-200"
                 />
                 <MagnifyingGlassIcon className="absolute left-3 top-3 h-5 w-5 text-white/60" />
-              </div>
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-3 top-3 h-5 w-5 text-white/60 hover:text-white transition-colors"
+                  >
+                    ✕
+                  </button>
+                )}
+              </form>
             </div>
 
             {/* Right side icons */}
             <div className="flex items-center space-x-4">
               {/* Search icon for mobile */}
-              <button className="lg:hidden p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200">
+              <button 
+                onClick={handleMobileSearch}
+                className="lg:hidden p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200"
+              >
                 <MagnifyingGlassIcon className="h-6 w-6" />
               </button>
 
               {/* User account */}
-              <Link href="/account" className="p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200">
-                <UserIcon className="h-6 w-6" />
-              </Link>
+              {isAuthenticated ? (
+                <Link 
+                  href="/account" 
+                  className="p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200 relative group"
+                  title={`Account - ${user?.firstName || user?.email}`}
+                >
+                  <UserIcon className="h-6 w-6" />
+                  <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-green-400 rounded-full opacity-80"></div>
+                </Link>
+              ) : (
+                <Link 
+                  href="/auth/login" 
+                  className="px-4 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200 text-sm font-medium"
+                >
+                  Sign In
+                </Link>
+              )}
 
               {/* Cart */}
               <button
@@ -110,17 +154,63 @@ export function Header() {
                     {item.name}
                   </Link>
                 ))}
+                
+                {/* Authentication Links */}
+                {isAuthenticated ? (
+                  <Link
+                    href="/account"
+                    className="block px-3 py-2 text-white/90 hover:text-white hover:bg-white/10 rounded-lg font-medium transition-all duration-200"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    My Account
+                  </Link>
+                ) : (
+                  <>
+                    <Link
+                      href="/auth/login"
+                      className="block px-3 py-2 text-white/90 hover:text-white hover:bg-white/10 rounded-lg font-medium transition-all duration-200"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Sign In
+                    </Link>
+                    <Link
+                      href="/auth/signup"
+                      className="block px-3 py-2 bg-gradient-to-r from-purple-500/40 to-pink-500/40 text-white rounded-lg font-medium transition-all duration-200"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Sign Up
+                    </Link>
+                  </>
+                )}
               </div>
               {/* Mobile search */}
               <div className="pt-4 mt-4 border-t border-white/20">
-                <div className="relative">
+                <form onSubmit={(e) => {
+                  e.preventDefault()
+                  if (searchQuery.trim()) {
+                    router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`)
+                    setSearchQuery('')
+                    setIsMenuOpen(false)
+                  }
+                }} className="relative">
                   <input
                     type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search products..."
                     className="glass w-full pl-10 pr-4 py-2.5 text-white placeholder-white/60 focus:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/30 rounded-xl"
                   />
                   <MagnifyingGlassIcon className="absolute left-3 top-3 h-5 w-5 text-white/60" />
-                </div>
+                  {searchQuery && (
+                    <button
+                      type="button"
+                      onClick={() => setSearchQuery('')}
+                      className="absolute right-3 top-3 h-5 w-5 text-white/60 hover:text-white transition-colors"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </form>
               </div>
             </div>
           )}

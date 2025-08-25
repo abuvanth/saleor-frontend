@@ -90,9 +90,61 @@ export function ProductCard({ product }: ProductCardProps) {
           </h3>
           
           {product.description && (
-            <p className="text-sm text-white/80 mb-4 line-clamp-2">
-              {product.description}
-            </p>
+            <div className="text-sm text-white/80 mb-4 line-clamp-2">
+              {(() => {
+                try {
+                  // Try to parse as JSON first
+                  const parsed = JSON.parse(product.description)
+                  
+                  // Handle Editor.js format
+                  if (parsed.blocks && Array.isArray(parsed.blocks)) {
+                    const textContent = parsed.blocks
+                      .filter((block: any) => block.type === 'paragraph' && block.data?.text)
+                      .map((block: any) => {
+                        // Strip HTML tags and decode HTML entities
+                        const text = block.data.text
+                          .replace(/<[^>]*>/g, '') // Remove HTML tags
+                          .replace(/&nbsp;/g, ' ') // Replace &nbsp; with space
+                          .replace(/&amp;/g, '&') // Replace &amp; with &
+                          .replace(/&lt;/g, '<') // Replace &lt; with <
+                          .replace(/&gt;/g, '>') // Replace &gt; with >
+                          .replace(/&quot;/g, '"') // Replace &quot; with "
+                          .replace(/&#39;/g, "'") // Replace &#39; with '
+                          .replace(/\\u2019/g, "'") // Replace unicode apostrophe
+                          .trim()
+                        return text
+                      })
+                      .join(' ')
+                    
+                    return textContent.length > 100 ? textContent.substring(0, 100) + '...' : textContent
+                  }
+                  
+                  // Handle other JSON structures
+                  if (Array.isArray(parsed)) {
+                    return parsed.slice(0, 2).map((item, index) => (
+                      <span key={index}>
+                        {typeof item === 'string' ? item : JSON.stringify(item)}
+                        {index < 1 && index < parsed.length - 1 ? ', ' : ''}
+                      </span>
+                    ))
+                  } else if (typeof parsed === 'object' && parsed !== null) {
+                    // For objects, show first key-value pair
+                    const entries = Object.entries(parsed).slice(0, 1)
+                    return entries.map(([key, value]) => (
+                      <span key={key}>
+                        {key}: {Array.isArray(value) ? value.join(', ') : String(value)}
+                      </span>
+                    ))
+                  } else {
+                    return String(parsed).substring(0, 100) + '...'
+                  }
+                } catch (error) {
+                  // If not JSON, handle as regular text
+                  const text = product.description.replace(/[\r\n]+/g, ' ').trim()
+                  return text.length > 100 ? text.substring(0, 100) + '...' : text
+                }
+              })()}
+            </div>
           )}
           
           <div className="flex items-center justify-between">
