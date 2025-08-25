@@ -1,60 +1,113 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
+import { ArrowRightIcon, ShoppingBagIcon, SparklesIcon } from '@heroicons/react/24/outline'
 
 export function Hero() {
   return (
     <div className="relative min-h-screen overflow-hidden gradient-ocean">
-      {/* Animated background elements */}
+      {/* Enhanced animated background elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-10 left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-1/3 right-20 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-pink-500/15 rounded-full blur-3xl animate-pulse delay-2000"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/5 to-black/20"></div>
+        <div className="absolute top-20 left-10 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse pulse-glow"></div>
+        <div className="absolute top-1/3 right-10 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute bottom-32 left-1/4 w-72 h-72 bg-pink-500/15 rounded-full blur-3xl animate-pulse delay-2000"></div>
+        <div className="absolute top-1/2 right-1/3 w-64 h-64 bg-blue-500/15 rounded-full blur-3xl animate-pulse delay-3000"></div>
+        
+        {/* Gradient overlays for depth */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/5 to-black/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-900/20 via-transparent to-blue-900/20"></div>
       </div>
       
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 lg:py-40">
+      <div className="relative z-20 container-max section-padding">
         <div className="text-center">
-          {/* Floating glass card */}
-          <div className="glass rounded-3xl p-8 mb-8 float max-w-4xl mx-auto">
-            <h1 className="text-5xl lg:text-7xl font-bold mb-6 animate-fade-in bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent">
+          {/* Enhanced floating glass card with premium styling */}
+          <div className="card-elegant mb-12 float max-w-5xl mx-auto backdrop-blur-2xl">
+            <div className="flex items-center justify-center mb-6">
+              <SparklesIcon className="h-8 w-8 text-yellow-400 animate-spin mr-3" />
+              <span className="text-white/80 font-medium text-lg tracking-wider uppercase">Premium Shopping Experience</span>
+              <SparklesIcon className="h-8 w-8 text-yellow-400 animate-spin ml-3" />
+            </div>
+            
+            <h1 className="text-6xl lg:text-8xl font-bold mb-8 animate-fade-in text-gradient-elegant text-shadow">
               Welcome to HyraBuy
             </h1>
-            <p className="text-xl lg:text-2xl mb-8 text-white/90 animate-fade-in backdrop-blur-sm">
-              Discover amazing products with our modern shopping experience. 
-              Quality, style, and convenience all in one place.
+            
+            <p className="text-xl lg:text-3xl mb-8 text-white/90 animate-fade-in font-light leading-relaxed max-w-4xl mx-auto">
+              Discover extraordinary products with our cutting-edge shopping experience. 
+              <span className="block mt-2 text-gradient font-medium">Quality, elegance, and innovation—all in one place.</span>
             </p>
+
+            {/* Feature highlights */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 mb-8">
+              <div className="glass-dark rounded-2xl p-4 text-center">
+                <ShoppingBagIcon className="h-8 w-8 text-purple-400 mx-auto mb-2" />
+                <p className="text-white/80 font-medium">Premium Products</p>
+              </div>
+              <div className="glass-dark rounded-2xl p-4 text-center">
+                <SparklesIcon className="h-8 w-8 text-pink-400 mx-auto mb-2" />
+                <p className="text-white/80 font-medium">Curated Collection</p>
+              </div>
+              <div className="glass-dark rounded-2xl p-4 text-center">
+                <ArrowRightIcon className="h-8 w-8 text-blue-400 mx-auto mb-2" />
+                <p className="text-white/80 font-medium">Fast Delivery</p>
+              </div>
+            </div>
           </div>
           
-          <div className="flex flex-col sm:flex-row gap-6 justify-center animate-slide-up">
+          {/* Enhanced action buttons */}
+          <div className="flex flex-col sm:flex-row gap-8 justify-center animate-slide-up">
             <Link 
               href="/products" 
-              className="group relative overflow-hidden"
+              className="group relative overflow-hidden transform hover:scale-105 transition-all duration-500"
             >
-              <div className="btn-glass bg-gradient-to-r from-white/20 to-white/10 hover:from-white/30 hover:to-white/20 text-white border-white/30">
-                <span className="relative z-10">Shop Now</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-pink-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="btn-glass bg-gradient-to-r from-white/20 to-white/10 hover:from-white/30 hover:to-white/20 text-white border-2 border-white/30 shadow-2xl hover:shadow-white/20 text-xl py-6 px-10 flex items-center justify-center gap-3">
+                <ShoppingBagIcon className="h-6 w-6" />
+                <span className="relative z-10 font-semibold">Explore Collection</span>
+                <ArrowRightIcon className="h-5 w-5 transform group-hover:translate-x-1 transition-transform duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-pink-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </div>
             </Link>
+            
             <Link 
               href="/categories" 
-              className="group relative overflow-hidden"
+              className="group relative overflow-hidden transform hover:scale-105 transition-all duration-500"
             >
-              <div className="btn-glass bg-gradient-to-r from-black/20 to-black/10 hover:from-black/30 hover:to-black/20 text-white border-white/20">
-                <span className="relative z-10">Browse Categories</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 to-cyan-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="btn-glass bg-gradient-to-r from-black/20 to-black/10 hover:from-black/30 hover:to-black/20 text-white border-2 border-white/20 shadow-2xl text-xl py-6 px-10 flex items-center justify-center gap-3">
+                <SparklesIcon className="h-6 w-6" />
+                <span className="relative z-10 font-semibold">Browse Categories</span>
+                <ArrowRightIcon className="h-5 w-5 transform group-hover:translate-x-1 transition-transform duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 to-cyan-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </div>
             </Link>
+          </div>
+
+          {/* Trust indicators */}
+          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-white mb-2">10K+</div>
+              <div className="text-white/70 text-sm">Happy Customers</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-white mb-2">500+</div>
+              <div className="text-white/70 text-sm">Premium Products</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-white mb-2">24/7</div>
+              <div className="text-white/70 text-sm">Customer Support</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-white mb-2">4.9★</div>
+              <div className="text-white/70 text-sm">Customer Rating</div>
+            </div>
           </div>
         </div>
       </div>
       
-      {/* Glassmorphism decorative elements */}
+      {/* Enhanced glassmorphism decorative elements */}
       <div className="absolute bottom-0 left-0 right-0">
-        <div className="glass-dark h-32 backdrop-blur-3xl bg-gradient-to-t from-black/30 to-transparent"></div>
+        <div className="glass-dark h-40 backdrop-blur-3xl bg-gradient-to-t from-black/40 to-transparent"></div>
         <svg
-          className="w-full h-20 text-white/10"
+          className="w-full h-24 text-white/10"
           preserveAspectRatio="none"
           viewBox="0 0 1200 120"
           xmlns="http://www.w3.org/2000/svg"

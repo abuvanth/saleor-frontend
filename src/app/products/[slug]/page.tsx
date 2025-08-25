@@ -397,7 +397,7 @@ export default function ProductDetailsPage() {
               )}
 
               {/* Variants */}
-              {variants.length > 0 && (
+              {variants.length > 1 && (
                 <div className="space-y-3">
                   <h3 className="text-lg font-semibold text-white">Variants</h3>
                   <div className="flex flex-wrap gap-2">
@@ -435,6 +435,23 @@ export default function ProductDetailsPage() {
                       })()}
                     </div>
                   )}
+                </div>
+              )}
+
+              {/* Stock status for single variant */}
+              {variants.length === 1 && (
+                <div className="text-sm">
+                  {(() => {
+                    const variant = variants[0]
+                    if (variant?.quantityAvailable === 0) {
+                      return <span className="text-red-400 font-medium">Out of stock</span>
+                    } else if (variant?.quantityAvailable && variant.quantityAvailable < 5) {
+                      return <span className="text-orange-400 font-medium">Only {variant.quantityAvailable} left in stock</span>
+                    } else if (variant?.quantityAvailable) {
+                      return <span className="text-green-400 font-medium">In stock ({variant.quantityAvailable} available)</span>
+                    }
+                    return <span className="text-green-400 font-medium">In stock</span>
+                  })()}
                 </div>
               )}
 
